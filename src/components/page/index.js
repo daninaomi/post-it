@@ -1,6 +1,6 @@
 import React from 'react'
-import SectionNotas from '../secaoNotasReact'
-import FormNotas from '../FormNotasReact'
+import SectionNotas from '../secaoNotas'
+import FormNotas from '../formNotas'
 import Nota from '../../Nota'
 import NovaLista from '../../ClasseNovaLista'
 

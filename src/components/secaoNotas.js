@@ -1,6 +1,6 @@
 import React from 'react'
-import Section from './sectionReact'
-import FormNotas from './FormNotasReact'
+import Section from './section'
+import FormNotas from './formNotas'
 
 
 const createFormNotas = (adicionarNota, excluirNota, editarNota, notaAtual, index) => {

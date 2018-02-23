@@ -1,9 +1,9 @@
 import React from 'react'
 
-import FormInput from './formInputReact'
-import FormTextArea from './formTextAreaReact'
-import FormButton from './formButtonReact'
-import Form from './formReact'
+import FormInput from './formInput'
+import FormTextArea from './formTextArea'
+import FormButton from './formButton'
+import Form from './form'
 import Nota from '../Nota'
 
 
