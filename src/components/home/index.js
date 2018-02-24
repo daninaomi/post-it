@@ -3,11 +3,12 @@ import SectionNotas from '../secaoNotas'
 import FormNotas from '../formNotas'
 import Nota from '../../Nota'
 import NovaLista from '../../ClasseNovaLista'
+import './page.css'
 
 import {connect} from 'react-redux'
 import {adicionarNota, removerNota, habilitarEdicao, alterarNota, deslogarUser} from '../../actions'
 
-import './page.css'
+import { Redirect } from 'react-router-dom'
 
 
 const montaFormNotas = (adicionarNota, excluirNota, editarNota) => {

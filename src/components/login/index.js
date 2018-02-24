@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import FormButton from '../formButton'
 import {logarUser, deslogarUser} from '../../actions'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 
 const botaoLogin = () => {

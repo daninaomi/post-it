@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import redutor from './reducers'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 import Page from './components/page/pageContainer'
 
