@@ -2,17 +2,22 @@ import {
   ADD_NOTE,
   REMOVE_NOTE,
   EDIT_NOTE,
-  SAVE_NOTE
+  SAVE_NOTE,
+  LOGA_USER,
+  DESLOGA_USER
 } from './actions'
 
 import Nota from './Nota'
+import combineReducers from 'redux'
 
 
-const initialState = {
-  listaNotas: []
-}
+// function usuario(state = false, action) {
+//   switch(action.type) {
+//     case
+//   } 
+// }
 
-export default function postitApp(state = initialState, action) {
+function notas(state = [], action) {
   switch (action.type) {
     case ADD_NOTE:
       let novaNota = new Nota(action.titulo, action.texto);
@@ -59,6 +64,10 @@ export default function postitApp(state = initialState, action) {
       return state
   }
 }
+
+const reducer = combineReducers({usuario, notas})
+
+export default reducer
 
 // https://redux.js.org/basics/reducers
 

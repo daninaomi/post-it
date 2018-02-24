@@ -10,7 +10,9 @@ let store = createStore(redutor)
 
 ReactDOM.render( 
     <Provider store={store}>
-        <Page />
+        <BrowerRouter>
+            <App />
+        </BrowerRouter>
     </Provider>,
     // React.createElement(Page, null), 
     // React.createElement('h1', { className: 'heading'}, 'Ooooooi Brunaaaa'), 
