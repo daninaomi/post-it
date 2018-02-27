@@ -1,3 +1,5 @@
+import {postNota, deleteNota, putNota} from './api'
+
 
 export const ADD_NOTE = 'ADD_NOTE'
 export const REMOVE_NOTE = 'REMOVE_NOTE'
@@ -8,18 +10,48 @@ export const DESLOGA_USER = 'DESLOGA_USER'
 
 
 export function adicionarNota(titulo, texto) {
-    return {
-        type: ADD_NOTE,
-        titulo,
-        texto
+
+    return dispatch => {
+        postNota(titulo, texto)
+            .then(resposta => {
+                dispatch({
+                    type: ADD_NOTE,
+                    index: resposta.data.index,
+                    titulo,
+                    texto
+                })
+            })
+            .catch(erro => {
+                console.log('Ocorreu um erro', erro)
+            })
     }
+
+    // return {
+    //     type: ADD_NOTE,
+    //     titulo,
+    //     texto
+    // }
 }
 
 export function removerNota(index) {
-    return {
-        type: REMOVE_NOTE,
-        index
+
+    return dispatch => {
+        deleteNota(index)
+            .then(() => {
+                dispatch({
+                    type: REMOVE_NOTE,
+                    index
+                })
+            })
+            .catch(erro => {
+                console.log('Ocorreu um erro', erro)
+            })
     }
+
+    // return {
+    //     type: REMOVE_NOTE,
+    //     index
+    // }
 }
 
 export function habilitarEdicao(index) {
@@ -30,12 +62,28 @@ export function habilitarEdicao(index) {
 }
 
 export function alterarNota(index, titulo, texto) {
-    return {
-        type: SAVE_NOTE,
-        index,
-        titulo,
-        texto
+
+    return dispatch => {
+        putNota(index, titulo, texto)
+            .then(() => {
+                dispatch({
+                    type: SAVE_NOTE,
+                    index,
+                    titulo,
+                    texto
+                })
+            })
+            .catch(erro => {
+                console.log('Ocorreu um erro', erro)
+            })
     }
+
+    // return {
+    //     type: SAVE_NOTE,
+    //     index,
+    //     titulo,
+    //     texto
+    // }
 }
 
 export function logarUser(usuario) {

@@ -25,7 +25,7 @@ function usuario(state = false, action) {
 function notas(state = [], action) {
   switch (action.type) {
     case ADD_NOTE:
-      let novaNota = new Nota(action.titulo, action.texto);
+      let novaNota = new Nota(action.index, action.titulo, action.texto);
 
       return { listaNotas: state.listaNotas.concat(novaNota) };
     // array concat
@@ -33,8 +33,8 @@ function notas(state = [], action) {
     case REMOVE_NOTE:
 
       return {
-        listaNotas: state.listaNotas.filter((notaAtual, index) => {
-          return index !== action.index
+        listaNotas: state.listaNotas.filter(notaAtual => {
+          return notaAtual.index !== action.index
         })
       };
     // filter pra retirar nota
@@ -42,9 +42,9 @@ function notas(state = [], action) {
     case EDIT_NOTE:
 
       return {
-        listaNotas: state.listaNotas.map((notaAtual, index) => {
-          if (index === action.index) {
-            return new Nota(notaAtual.titulo, notaAtual.texto, true);
+        listaNotas: state.listaNotas.map(notaAtual => {
+          if (notaAtual.index === action.index) {
+            return new Nota(notaAtual.index, notaAtual.titulo, notaAtual.texto, true);
           } else {
             return notaAtual
           }
@@ -56,9 +56,9 @@ function notas(state = [], action) {
     case SAVE_NOTE:
 
       return {
-        listaNotas: state.listaNotas.map((notaAtual, index) => {
-          if (index === action.index) {
-            return new Nota(action.titulo, action.texto, false);
+        listaNotas: state.listaNotas.map(notaAtual => {
+          if (notaAtual.index === action.index) {
+            return new Nota(action.index, action.titulo, action.texto, false);
           } else {
             return notaAtual
           }

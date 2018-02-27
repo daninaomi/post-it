@@ -7,7 +7,7 @@ import Form from './form'
 import Nota from '../Nota'
 
 
-const createInputTitulo = (notaAlterada, index) => {
+const createInputTitulo = (notaAlterada) => {
     const props = {
         key: 'note-title',
         className: 'note__title',
@@ -20,7 +20,7 @@ const createInputTitulo = (notaAlterada, index) => {
         }
     }
 
-    if ( index !== undefined && !notaAlterada.editando) {
+    if ( notaAlterada.index !== undefined && !notaAlterada.editando) {
         props.readOnly = true
     }
 
@@ -28,7 +28,7 @@ const createInputTitulo = (notaAlterada, index) => {
     return <FormInput {...props} />
 }
 
-const createInputTexto = (notaAlterada, index) => {
+const createInputTexto = (notaAlterada) => {
     const props = {
         key: 'note-body',
         className: 'note__body',
@@ -41,7 +41,7 @@ const createInputTexto = (notaAlterada, index) => {
         }
     }
 
-    if ( index !== undefined && !notaAlterada.editando) {
+    if ( notaAlterada.index !== undefined && !notaAlterada.editando) {
         props.readOnly = true
     }
 
@@ -49,13 +49,13 @@ const createInputTexto = (notaAlterada, index) => {
     return <FormTextArea {...props} />
 }
 
-const createBotaoSalvar = (adicionarNota, notaAlterada, index) => {
+const createBotaoSalvar = (adicionarNota, notaAlterada) => {
     const props = {
         key: 'note-button-save',
         className: 'note__control',
         type: 'button',
         onClick: event => {
-            adicionarNota(notaAlterada.titulo, notaAlterada.texto, event.target.form, index)
+            adicionarNota(notaAlterada.titulo, notaAlterada.texto, event.target.form, notaAlterada.index)
         }
     }
 
@@ -66,7 +66,7 @@ const createBotaoSalvar = (adicionarNota, notaAlterada, index) => {
 
 };
 
-const createButtonRemover = (notaAlterada, excluirNota, index) => {
+const createButtonRemover = (notaAlterada, excluirNota) => {
 
     const props = {
         key: 'note-button-delete',
@@ -87,14 +87,14 @@ const createButtonRemover = (notaAlterada, excluirNota, index) => {
 };
 
 
-function FormNotas({notaAtual, index, adicionarNota, excluirNota, editarNota}) {
+function FormNotas({notaAtual, adicionarNota, excluirNota, editarNota}) {
 
-    let notaAlterada = new Nota(notaAtual.titulo, notaAtual.texto, notaAtual.editando)
+    let notaAlterada = new Nota(notaAtual.index, notaAtual.titulo, notaAtual.texto, notaAtual.editando)
 
-    let inputTitulo = createInputTitulo(notaAlterada, index);
-    let inputTexto = createInputTexto(notaAlterada, index);
-    let botaoExcluir = createButtonRemover(notaAlterada, excluirNota, index);
-    let botaoSalvar = createBotaoSalvar(adicionarNota, notaAlterada, index);
+    let inputTitulo = createInputTitulo(notaAlterada);
+    let inputTexto = createInputTexto(notaAlterada);
+    let botaoExcluir = createButtonRemover(excluirNota, notaAlterada);
+    let botaoSalvar = createBotaoSalvar(adicionarNota, notaAlterada);
 
     // let children;
     let props = { className: 'note' };
@@ -105,17 +105,17 @@ function FormNotas({notaAtual, index, adicionarNota, excluirNota, editarNota}) {
     //     inputTexto.className = 'note__body note__body--editing';
     // }
 
-    if (index !== undefined && !notaAlterada.editando) {
-        props.onClick = () => editarNota(index)
+    if (notaAlterada.index !== undefined && !notaAlterada.editando) {
+        props.onClick = () => editarNota(notaAlterada.index)
     }
 
     // return React.createElement(Form, propsForm, children)
     return (
         <Form {...props}>
-            {index !== undefined && notaAlterada.editando && botaoExcluir}
+            {notaAlterada.index !== undefined && notaAlterada.editando && botaoExcluir}
             {inputTitulo}
             {inputTexto}
-            {(index === undefined || notaAlterada.editando) && botaoSalvar}
+            {(notaAlterada.index === undefined || notaAlterada.editando) && botaoSalvar}
         </Form>
     )
 }

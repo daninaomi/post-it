@@ -1,5 +1,6 @@
 class Nota {
-    constructor(novoTitulo, novoTexto, novoEditando = false) {
+    constructor(novaIndex, novoTitulo, novoTexto, novoEditando = false) {
+        this.index = novaIndex;
         this.titulo = novoTitulo;
         this.texto = novoTexto;
         this.editando = novoEditando;
