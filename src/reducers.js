@@ -1,4 +1,4 @@
-import { 
+import {
   ADD_NOTE,
   REMOVE_NOTE,
   EDIT_NOTE,
@@ -11,11 +11,16 @@ import Nota from './Nota'
 import combineReducers from 'redux'
 
 
-// function usuario(state = false, action) {
-//   switch(action.type) {
-//     case
-//   } 
-// }
+function usuario(state = false, action) {
+  switch (action.type) {
+    case LOGA_USER:
+      return true
+    case DESLOGA_USER:
+      return false
+    default:
+      return state
+  }
+}
 
 function notas(state = [], action) {
   switch (action.type) {
@@ -23,7 +28,7 @@ function notas(state = [], action) {
       let novaNota = new Nota(action.titulo, action.texto);
 
       return { listaNotas: state.listaNotas.concat(novaNota) };
-      // array concat
+    // array concat
 
     case REMOVE_NOTE:
 
@@ -32,40 +37,42 @@ function notas(state = [], action) {
           return index !== action.index
         })
       };
-      // filter pra retirar nota
+    // filter pra retirar nota
 
     case EDIT_NOTE:
-      
+
       return {
-        listaNotas: state.listaNotas.map( (notaAtual, index) => {
+        listaNotas: state.listaNotas.map((notaAtual, index) => {
           if (index === action.index) {
             return new Nota(notaAtual.titulo, notaAtual.texto, true);
           } else {
             return notaAtual
-          }}
+          }
+        }
         )
       };
-      // map pra pegar index
+    // map pra pegar index
 
     case SAVE_NOTE:
 
       return {
-        listaNotas: state.listaNotas.map( (notaAtual, index) => {
+        listaNotas: state.listaNotas.map((notaAtual, index) => {
           if (index === action.index) {
             return new Nota(action.titulo, action.texto, false);
           } else {
             return notaAtual
-          }}
+          }
+        }
         )
       };
-      // map pra pegar index
+    // map pra pegar index
 
     default:
       return state
   }
 }
 
-const reducer = combineReducers({usuario, notas})
+const reducer = combineReducers({ usuario, notas })
 
 export default reducer
 

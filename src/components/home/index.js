@@ -6,9 +6,9 @@ import NovaLista from '../../ClasseNovaLista'
 import './page.css'
 
 import {connect} from 'react-redux'
-import {adicionarNota, removerNota, habilitarEdicao, alterarNota, deslogarUser} from '../../actions'
-
 import { Redirect } from 'react-router-dom'
+
+import {adicionarNota, removerNota, habilitarEdicao, alterarNota, deslogarUser} from '../../actions'
 
 
 const montaFormNotas = (adicionarNota, excluirNota, editarNota) => {
@@ -49,11 +49,13 @@ const Home = ({listaNotas, adicionarNota, excluirNota, editarNota}) => {
     let secaoNotas = montaSecaoNotas(listaNotas, adicionarNota, excluirNota, editarNota)
 
 
-    return (
+    return usuario ? (
         <main {...props}>
             {formNotas}
             {secaoNotas}
         </main>
+    ) : (
+        <Redirect to="/login" />
     )
 
 }

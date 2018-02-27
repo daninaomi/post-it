@@ -5,7 +5,8 @@ import { Provider } from 'react-redux'
 import redutor from './reducers'
 import { BrowserRouter, Route, Link } from 'react-router-dom'
 
-import Page from './components/page/pageContainer'
+import App from './components/app'
+// import Page from './components/page/pageContainer'
 
 let store = createStore(redutor)
 
