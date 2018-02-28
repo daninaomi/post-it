@@ -19,7 +19,7 @@ const botaoLogin = () => {
 
 
 const Login = ({usuario, logarUser}) => {
-    return usuario ? (
+    usuario ? (
     <Redirect to="/" /> 
     ) : (
         <article>

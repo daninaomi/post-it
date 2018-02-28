@@ -5,10 +5,10 @@ import Nota from '../../Nota'
 import NovaLista from '../../ClasseNovaLista'
 import './page.css'
 
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-import {adicionarNota, removerNota, habilitarEdicao, alterarNota, deslogarUser} from '../../actions'
+import { listaNotas, adicionarNota, removerNota, habilitarEdicao, alterarNota, deslogarUser } from '../../actions'
 
 
 const montaFormNotas = (adicionarNota, excluirNota, editarNota) => {
@@ -40,52 +40,59 @@ const montaSecaoNotas = (listaNotas, adicionarNota, excluirNota, editarNota) => 
 }
 
 
-const Home = ({listaNotas, adicionarNota, excluirNota, editarNota}) => {
+class Home extends React.Component {
+    componentDidMount() {
+        this.props.listarNotas()
+    }
+
+    render() {
+        const { listaNotas, adicionarNota, excluirNota, editarNota } = this
+
+        const props = { className: 'container' }
+
+        let formNotas = montaFormNotas(adicionarNota, excluirNota, editarNota)
+        let secaoNotas = montaSecaoNotas(listaNotas, adicionarNota, excluirNota, editarNota)
 
 
-    const props = { className: 'container' }
-
-    let formNotas = montaFormNotas(adicionarNota, excluirNota, editarNota)
-    let secaoNotas = montaSecaoNotas(listaNotas, adicionarNota, excluirNota, editarNota)
-
-
-    return usuario ? (
-        <main {...props}>
-            {formNotas}
-            {secaoNotas}
-        </main>
-    ) : (
-        <Redirect to="/login" />
-    )
-
+        return usuario ? (
+            <main {...props}>
+                {formNotas}
+                {secaoNotas}
+            </main>
+        ) : (
+                <Redirect to="/login" />
+            )
+    }
 }
 
 const mapStateToProps = state => {
     return { listaNotas: state.listaNotas }
 }
 
-const mapDispatchToProps = dispatch => (
-    {
-        adicionarNota: (titulo, texto, formulario, index) => {
+const mapDispatchToProps = dispatch => ({
+    listarNotas: () => {
+        dispatch(listaNotas())
+    },
+    adicionarNota: (titulo, texto, formulario, index) => {
 
-            if (index === undefined) {
-                dispatch(adicionarNota(titulo, texto))
-                formulario.reset();
-            } else {
-                dispatch(alterarNota(index, titulo, texto))
-            }
-            
-        },
-
-        excluirNota: (evento, index) => {
-            evento.stopPropagation();
-            dispatch(removerNota(index));
-        },
-        editarNota: index => {
-            dispatch(habilitarEdicao(index))
+        if (index === undefined) {
+            dispatch(adicionarNota(titulo, texto))
+            formulario.reset();
+        } else {
+            dispatch(alterarNota(index, titulo, texto))
         }
-    
+
+    },
+
+    excluirNota: (evento, index) => {
+        evento.stopPropagation();
+        dispatch(removerNota(index));
+    },
+    editarNota: index => {
+        dispatch(habilitarEdicao(index))
     }
+
+}
 )
 
 const HomePage = connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -4,7 +4,8 @@ import {
   EDIT_NOTE,
   SAVE_NOTE,
   LOGA_USER,
-  DESLOGA_USER
+  DESLOGA_USER,
+  LISTAR_NOTAS
 } from './actions'
 
 import Nota from './Nota'
@@ -24,6 +25,11 @@ function usuario(state = false, action) {
 
 function notas(state = [], action) {
   switch (action.type) {
+    case LISTAR_NOTAS:
+      return action.lista.map(item => {
+        return new Nota(item.index, item.titulo, item.texto)
+      })
+
     case ADD_NOTE:
       let novaNota = new Nota(action.index, action.titulo, action.texto);
 

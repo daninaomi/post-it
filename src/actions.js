@@ -1,4 +1,4 @@
-import {postNota, deleteNota, putNota} from './api'
+import {getNotas, postNota, deleteNota, putNota} from './api'
 
 
 export const ADD_NOTE = 'ADD_NOTE'
@@ -7,7 +7,22 @@ export const EDIT_NOTE = 'EDIT_NOTE'
 export const SAVE_NOTE = 'SAVE_NOTE'
 export const LOGA_USER = 'LOGA_USER'
 export const DESLOGA_USER = 'DESLOGA_USER'
+export const LISTAR_NOTAS = 'LISTAR_NOTAS'
 
+export function listaNotas() {
+    return dispatch => {
+        getNotas()
+        .then(resposta => {
+            dispatch({
+                type: LISTAR_NOTAS,
+                lista: resposta.data.notas
+            })
+        })
+        .catch(erro => {
+            console.log('Ocorreu erro' + erro)
+        })
+    }
+}
 
 export function adicionarNota(titulo, texto) {
 
